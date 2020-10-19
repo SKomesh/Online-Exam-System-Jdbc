@@ -25,7 +25,10 @@
 				<td colspan="3"><input type="submit" value="Login" name="loginbutton" id="loginbutton"></td>
 			</tr>
 			<tr align="center">
-				<td colspan="3"><a href="">Sign Up</a>&nbsp;&nbsp;&nbsp;<a href="">Forget Password</a></td>
+				<td colspan="3"><a href="/userRegistration">Sign Up</a>&nbsp;&nbsp;&nbsp;<a href="/userForgetPassword">Forget Password</a></td>
+			</tr>
+			<tr align="center">
+				<td colspan="3">${response}</td>
 			</tr>
 		</table>
 

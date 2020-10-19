@@ -9,4 +9,6 @@ import com.somesh.onlineExamSystem.Entity.UserDetails;
 public interface UserLoginDao {
 
 	public UserDetails getUserByEmail(String emailId) throws DataAccessException, SQLException;
+
+	public Boolean addNewUser(UserDetails object);
 }

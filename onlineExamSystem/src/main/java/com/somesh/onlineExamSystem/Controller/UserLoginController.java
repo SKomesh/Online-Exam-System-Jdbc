@@ -9,10 +9,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.somesh.onlineExamSystem.Entity.UserDetails;
 import com.somesh.onlineExamSystem.Service.UserLoginService;
 
 @Controller
@@ -25,8 +27,18 @@ public class UserLoginController {
 		return "login";
 	}
 	
+	@GetMapping("/userRegistration")
+	public String showUserRegistrationPage() {
+		return "userRegistration";
+	}
+	
+	@GetMapping("/userForgetPassword")
+	public String showUserForgetPasswordPage() {
+		return "userForgetPassword";
+	}
+	
 	@PostMapping("/userLogin")
-	public String userLogin(@RequestParam String username,@RequestParam String pass,ModelMap modelmap) throws DataAccessException, SQLException, JsonProcessingException {
+	public String userLogin(@RequestParam String username,@RequestParam String pass,ModelMap map) throws DataAccessException, SQLException, JsonProcessingException {
 		Map<String,Object> reqObject = new HashMap<>();
 		Map<String,Object> resObject = new HashMap<>();
 		reqObject.put("Username", username);
@@ -34,7 +46,23 @@ public class UserLoginController {
 		resObject = userLoginService.userLogin(reqObject,resObject);
 		if(resObject.get("Code")=="0000" && resObject.get("Message")=="Success") {
 			return "dashboard";
+		}else {
+			map.addAttribute("response","Opps..Something Went Wrong..! User login has Failed.");
+			return "login";
 		}
-		return "loginError";
+	}
+	
+	@PostMapping("/addNewUser")
+	public String addNewUser(@ModelAttribute UserDetails userDetails,ModelMap map) {
+		Map<String,Object> reqObject = new HashMap<>();
+		Map<String,Object> resObject = new HashMap<>();
+		reqObject.put("userDetails", userDetails);
+		resObject = userLoginService.addNewUser(reqObject,resObject);
+		if(resObject.get("Code")=="0000" && resObject.get("Message")=="Success") {
+			map.addAttribute("response","User has successfully registration done.");
+		}else {
+			map.addAttribute("response","Opps..Something Went Wrong..! User Registration has Failed.");
+		}
+		return "userRegistration";
 	}
 }

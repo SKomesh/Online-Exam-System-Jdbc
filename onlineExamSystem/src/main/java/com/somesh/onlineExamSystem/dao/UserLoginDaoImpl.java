@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.somesh.onlineExamSystem.Entity.UserDetails;
+import com.somesh.onlineExamSystem.Utils.SqlQueries;
 
 @Repository
 public class UserLoginDaoImpl implements UserLoginDao {
@@ -32,11 +33,20 @@ public class UserLoginDaoImpl implements UserLoginDao {
 	
 	@Override
 	public UserDetails getUserByEmail(String emailId) throws DataAccessException, SQLException {
-		List<UserDetails> userDetailslist = jdbcTemplate.query("SELECT * FROM userDetails WHERE emailId='somesh@gmail.com'", rowMapper);
+		List<UserDetails> userDetailslist = jdbcTemplate.query("SELECT * FROM userDetails WHERE emailId="+"'"+emailId+"'", rowMapper);
 		if(!userDetailslist.isEmpty()) {
 		return userDetailslist.get(0);
 		}
 		return null;
+	}
+
+	@Override
+	public Boolean addNewUser(UserDetails object) {
+		if(jdbcTemplate.update(SqlQueries.ADD_NEW_USER, object.getFirstName(),object.getLastName(),object.getMobileNo(),object.getEmailId(),object.getPassword(),object.getConfirmPassword())>0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 }
