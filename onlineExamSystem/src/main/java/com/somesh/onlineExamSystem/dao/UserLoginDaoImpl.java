@@ -2,7 +2,11 @@ package com.somesh.onlineExamSystem.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -46,6 +50,25 @@ public class UserLoginDaoImpl implements UserLoginDao {
 			return true;
 		}else {
 			return false;
+		}
+	}
+
+	@Override
+	public  Map<String, Object> sendOtpToUser(String emailId, Map<String, Object> resObject) {
+		System.out.println("UserLoginService -->sendOtpToUser() : "+emailId);
+		List<UserDetails> userDetailslist = jdbcTemplate.query("SELECT * FROM userDetails WHERE emailId="+"'"+emailId+"'", rowMapper);
+		if(!userDetailslist.isEmpty()) {
+			int userid = userDetailslist.get(0).getUserId();
+			Integer pin = 10000 + new Random().nextInt(90000); 
+			Date today = Calendar.getInstance().getTime();
+			if(jdbcTemplate.update(SqlQueries.SEND_OTP, userid,pin.toString(),today)>0) {
+				resObject.put("userId", userid);
+				return resObject;
+			}else {
+				return resObject;
+			}
+		}else {
+			return resObject;
 		}
 	}
 

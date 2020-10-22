@@ -65,4 +65,21 @@ public class UserLoginController {
 		}
 		return "userRegistration";
 	}
+	
+	@PostMapping("/sendOtp")
+	public String sendOtpToUser(@RequestParam String emailId,ModelMap map) {
+		System.out.println("UserLoginController -->sendOtpToUser() : "+emailId);
+		Map<String,Object> reqObject = new HashMap<>();
+		Map<String,Object> resObject = new HashMap<>();
+		reqObject.put("emailId", emailId);
+		resObject = userLoginService.sendOtpToUser(reqObject,resObject);
+		if(resObject.get("Code")=="0000" && resObject.get("Message")=="Success") {
+			map.addAttribute("userId",resObject.get("userId"));
+			map.addAttribute("emailId",emailId);
+			return "verifyOtp";
+		}else {
+			map.addAttribute("response","Opps..Something Went Wrong..! OTP has not send.");
+			return "userForgetPassword";
+		}
+	}
 }

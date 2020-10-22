@@ -40,4 +40,17 @@ public class UserLoginService {
 		return resObject;
 	}
 
+	public Map<String, Object> sendOtpToUser(Map<String, Object> reqObject, Map<String, Object> resObject) {
+		System.out.println("UserLoginService -->sendOtpToUser() : "+(String)reqObject.get("emailId"));
+		resObject = userLoginDao.sendOtpToUser((String)reqObject.get("emailId"),resObject);
+		if(!resObject.isEmpty()) {
+			resObject.put("Code", "0000");
+			resObject.put("Message", "Success");
+		}else {
+			resObject.put("Code", "1111");
+			resObject.put("Message", "Fail");
+		}
+		return resObject;
+	}
+
 }

@@ -19,10 +19,13 @@
 			    <th colspan="3"><a href="/login">Back</a></th>
 			</tr>
 			<tr align="center">
-				<td colspan="3"><input type="email" name="emailid" id="emailid" placeholder="Email ID"></td>
+				<td colspan="3"><input type="email" name="emailId" id="emailId" placeholder="Email ID"></td>
 			</tr>
 			<tr align="center">
 				<td colspan="3"><input type="submit" value="Send OTP" name="sendotp" id="sendotp"></td>
+			</tr>
+			<tr align="center">
+				<td colspan="3">${response}</td>
 			</tr>
 		</table>
 	</form>
