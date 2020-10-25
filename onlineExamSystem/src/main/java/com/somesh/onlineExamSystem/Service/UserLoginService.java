@@ -53,4 +53,29 @@ public class UserLoginService {
 		return resObject;
 	}
 
+	public Map<String, Object> verifyOtp(Map<String, Object> reqObject, Map<String, Object> resObject) {
+		System.out.println("UserLoginService -->verifyOtp() : "+reqObject.get("userId")+ " " +reqObject.get("otp"));
+		Boolean response = userLoginDao.verifyOtp(reqObject);
+		if(response) {
+			resObject.put("Code", "0000");
+			resObject.put("Message", "Success");
+		}else {
+			resObject.put("Code", "1111");
+			resObject.put("Message", "Fail");
+		}
+		return resObject;
+	}
+
+	public Map<String, Object> resetPassword(Map<String, Object> reqObject, Map<String, Object> resObject) {
+		Boolean response = userLoginDao.resetPassword(reqObject);
+		if(response) {
+			resObject.put("Code", "0000");
+			resObject.put("Message", "Success");
+		}else {
+			resObject.put("Code", "1111");
+			resObject.put("Message", "Fail");
+		}
+		return resObject;
+	}
+
 }

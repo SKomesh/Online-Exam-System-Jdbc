@@ -19,16 +19,19 @@
 			    <th colspan="3"><a href="/login">Back</a></th>
 			</tr>
 			<tr align="center">
-				<td colspan="3"><input type="email" name="emailid" id="emailid" placeholder="Email ID" value=${emailID} ></td>
-			</tr>
-			<tr align="center">
-				<td colspan="3"><input type="password" name="npass" id="npass" placeholder="New Password"></td>
+				<td colspan="3">
+				<input type="hidden" name="userId" id="userId" value=${userId}>
+				<input type="password" name="npass" id="npass" placeholder="New Password">
+				</td>
 			</tr>
 			<tr align="center">
 				<td colspan="3"><input type="password" name="cpass" id="cpass" placeholder="Confirm Password"></td>
 			</tr>
 			<tr align="center">
 				<td colspan="3"><input type="submit" value="Change Password" name="changePassword" id="changePassword"></td>
+			</tr>
+			<tr align="center">
+				<td colspan="3">${response}</td>
 			</tr>
 		</table>
 

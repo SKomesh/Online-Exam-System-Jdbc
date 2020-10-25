@@ -82,4 +82,37 @@ public class UserLoginController {
 			return "userForgetPassword";
 		}
 	}
+	
+	@PostMapping("/verifyOtp")
+	public String verifyOtp(@RequestParam String userId,@RequestParam String otp,ModelMap map) {
+		System.out.println("UserLoginController -->verifyOtp() : "+userId+ " " +otp);
+		Map<String,Object> reqObject = new HashMap<>();
+		Map<String,Object> resObject = new HashMap<>();
+		reqObject.put("userId", userId);
+		reqObject.put("otp", otp);
+		resObject = userLoginService.verifyOtp(reqObject,resObject);
+		if(resObject.get("Code")=="0000" && resObject.get("Message")=="Success") {
+			map.addAttribute("userId",userId);
+			return "resetPassword";
+		}else {
+			map.addAttribute("response","Opps..Something Went Wrong..! Entered OTP not correct.");
+			return "userForgetPassword";
+		}
+	}
+	
+	@PostMapping("/resetPassword")
+	public String resetPassword(@RequestParam String userId,@RequestParam String npass,ModelMap map) {
+		Map<String,Object> reqObject = new HashMap<>();
+		Map<String,Object> resObject = new HashMap<>();
+		reqObject.put("userId", userId);
+		reqObject.put("npass", npass);
+		resObject = userLoginService.resetPassword(reqObject,resObject);
+		if(resObject.get("Code")=="0000" && resObject.get("Message")=="Success") {
+			map.addAttribute("userId",userId);
+			map.addAttribute("response","Your Password Reset Successfully.");
+			return "dashboard";
+		}else {
+			map.addAttribute("response","Opps..Something Went Wrong..! Your Password not reset.");
+			return "resetPassword";
+		}	}
 }

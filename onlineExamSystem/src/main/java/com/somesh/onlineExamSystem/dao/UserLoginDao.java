@@ -14,4 +14,8 @@ public interface UserLoginDao {
 	public Boolean addNewUser(UserDetails object);
  
     public Map<String, Object> sendOtpToUser(String object, Map<String, Object> resObject);
+
+	public Boolean verifyOtp(Map<String, Object> reqObject);
+
+	public Boolean resetPassword(Map<String, Object> reqObject);
 }

@@ -23,11 +23,11 @@
 			</tr>
 			<tr align="center">
 				<td colspan="3">
-				<input type="hidden" name="userid" id="userid" value=${userId}>
-				<input type="email" name="emailid" id="emailid" placeholder="Email ID" value=${emailId}></td>
+				<input type="hidden" name="userId" id="userId" value=${userId}>
+				<input type="email" name="emailId" id="emailId" placeholder="Email ID" value=${emailId}></td>
 			</tr>
 			<tr align="center">
-				<td colspan="3"><input type="text" name="opt" id="otp" placeholder="Enter OTP"></td>
+				<td colspan="3"><input type="text" name="otp" id="otp" placeholder="Enter OTP"></td>
 			</tr>
 			<tr align="center">
 				<td colspan="3"><input type="submit" value="Submit" name="votp" id="votp"></td>
